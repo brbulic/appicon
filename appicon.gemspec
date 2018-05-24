@@ -6,10 +6,10 @@ require 'appicon/version'
 Gem::Specification.new do |spec|
   spec.name          = "appicon"
   spec.version       = Appicon::VERSION
-  spec.authors       = ["Erik Sundin"]
-  spec.email         = ["erik@eriksundin.se"]
+  spec.authors       = ["Erik Sundin", "Bruno Bulić"]
+  spec.email         = ["erik@eriksundin.se", "brbulic@gmail.com"]
   spec.summary       = %q{Convert and install iOS App icons into an XCode Asset Catalog.}
-  spec.homepage      = "https://github.com/eriksundin/appicon"
+  spec.homepage      = "https://github.com/brbulic/appicon"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

@@ -29,14 +29,21 @@ command :'install' do |c|
     contents['images'].each do |image|
       image_size = image['size']
       image_scale = image['scale']
+      remove_alpha = ''
 
       scaled_image_side = Integer(image_size.split('x').first.to_f * image_scale.sub('x', '').to_f)
       scaled_image_name = "Icon-#{image_size}-@#{image_scale}#{File.extname(@icon)}"
       scaled_image_output = File.join(@icon_set, scaled_image_name)
 
+      # ITMS-90717 Error - itunes app art must not have alpha channel
+      if image_size.include? "1024" 
+        remove_alpha = "-alpha remove"
+        puts "Removing alpha channel for #{image_size}"
+      end
+
       # Generate each icon
       puts "Generating #{image_size} @ #{image_scale}."
-      if system("convert #{@icon.shellescape} -resize #{scaled_image_side}x#{scaled_image_side} #{scaled_image_output.shellescape}")
+      if system("convert #{@icon.shellescape} -resize #{scaled_image_side}x#{scaled_image_side} #{remove_alpha} #{scaled_image_output.shellescape}")
 
         # Remove old icons that are not used any more
         previous_icon = image['filename']
